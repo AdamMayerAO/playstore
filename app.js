@@ -23,19 +23,22 @@ app.get('/apps', (req, res) => {
         }
     }
 
-    let resuts = apps.map(app =>
-        app.App.toUpperCase()
-        );
-
-    results = apps.filter(app=>
+    
+    let results = apps.filter(app=>
             app
              .Genres
              .includes(genre));    
-        
+     
     
-    if (sort) {
+    if (sort === "Rating") {
         results.sort((a,b) => {
             return a[sort] > b[sort]? 1: a[sort] < b[sort]? -1: 0;
+        });
+        
+    } else if (sort === "App") {
+        
+        results.sort((a,b) => {
+            return a[sort].localeCompare(b[sort])
         });
     }
 
